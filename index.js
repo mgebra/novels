@@ -12,13 +12,13 @@ btn.addEventListener("click", function () {
   if (prefersDarkScheme.matches) {
     document.body.classList.toggle("light-theme");
     var theme = document.body.classList.contains("light-theme")
-      ? "light"
-      : "dark";
+        ? "light"
+        : "dark";
   } else {
     document.body.classList.toggle("dark-theme");
     var theme = document.body.classList.contains("dark-theme")
-      ? "dark"
-      : "light";
+        ? "dark"
+        : "light";
   }
   localStorage.setItem("theme", theme);
 });
@@ -35,24 +35,8 @@ function startGame() {
 
 function showTextNode(textNodeIndex) {
   const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
-  
-  let text = textNode.text;
-  
-  let start = 0;
-  let end = 0;
-  while (text.includes('$', start)) {
-	start = text.indexOf('$', start);
-	end = text.indexOf(' ', start);
-	
-	let v = text.substring(start + 1, end);
-	
-	if (state[v]) {
-	  text = text.substring(0, start) + state[v] + text.substring(end)
-	}
-	
-	start = end;
-  }
-  
+
+  text = changeTextVariables(textNode.text);
   textElement.innerText = text
   while (optionButtonsElement.firstChild) {
     optionButtonsElement.removeChild(optionButtonsElement.firstChild)
@@ -61,12 +45,32 @@ function showTextNode(textNodeIndex) {
   textNode.options.forEach(option => {
     if (showOption(option)) {
       const optionDiv = document.createElement('div')
-      optionDiv.innerText = option.text
+      let text = changeTextVariables(option.text);
+      optionDiv.innerText = text
       optionDiv.classList.add('option')
       optionDiv.addEventListener('click', () => selectOption(option))
       optionButtonsElement.appendChild(optionDiv)
     }
   })
+}
+
+function changeTextVariables(text) {
+  let start = 0;
+  let end = 0;
+  while (text.includes('$', start)) {
+    start = text.indexOf('$', start);
+    end = text.indexOf(' ', start);
+
+    let v = text.substring(start + 1, end);
+
+    if (state[v]) {
+      text = text.substring(0, start) + state[v] + text.substring(end)
+    }
+
+    start = end;
+  }
+
+  return text;
 }
 
 function showOption(option) {
@@ -89,12 +93,23 @@ const textNodes = [
     options: [
       {
         text: 'შენ დაინახე ჯულია',
+        setState: { dogName: 'ბაქეთი', dogName1: 'ბაქეთის' },
         nextText: 2
       }
     ]
   },
   {
     id: 2,
+    text: '1982',
+    options: [
+      {
+        text: 'ზაფხულის განმავლობაში და შენ ჯულიას ძალიან მოგწონდათ $dogName1 გასეირნება საღამოობით',
+        nextText: 21
+      }
+    ]
+  },
+  {
+    id: 20,
     text: 'ის დაახლოებით შენი ასაკისაა, 30 წლამდე. ის იცინის კარგად ჩაცმულ პროფესორებთან და სტუდენტებთან ერთად, რომლებიც არიან ახლომდებარე უნივერსიტეტიდან. \n\nშენ, ჰენრი, დასალევად ხარ მეგობრებთან ერთად.',
     options: [
       {
@@ -183,12 +198,12 @@ const textNodes = [
     options: [
       {
         text: 'თქვენ ბიგლი აიყვანეთ და ჯულიამ დაარქვა მას ბაქეთი.',
-		setState: { dogName: 'ბაქეთი', dogName1: 'ბაქეთის' },
+        setState: { dogName: 'ბაქეთი', dogName1: 'ბაქეთის' },
         nextText: 11
       },
-	  {
+      {
         text: 'თქვენ გერმანული ნაგაზი აიყვანეთ და ჯულიამ დაარქვა მას მაიჰემი.',
-		setState: { dogName: 'მაიჰემი', dogName1: 'მაიჰემის' },
+        setState: { dogName: 'მაიჰემი', dogName1: 'მაიჰემის' },
         nextText: 11
       }
     ]
@@ -221,7 +236,7 @@ const textNodes = [
         text: 'ეს შესანიშნავი იქნებოდა',
         nextText: 14
       },
-	  {
+      {
         text: 'შეიძლება ერთ დღესაც, რატომ ვიჩქაროთ?',
         nextText: 15
       }
@@ -255,7 +270,7 @@ const textNodes = [
         text: 'შენ განრისხდი მასზე',
         nextText: 17
       },
-	  {
+      {
         text: 'შენ დააიგნორე ის',
         nextText: 18
       }
@@ -279,7 +294,7 @@ const textNodes = [
         text: 'შენ იჭიმები მხრებში და იღებ მამაკაცურ პოზას.',
         nextText: 19
       },
-	  {
+      {
         text: 'სექსუალურად იკლაკნები და იღებ ვიქტორია სეკრეტის მოდელების პოზას.',
         nextText: 19
       }
@@ -323,7 +338,7 @@ const textNodes = [
         text: 'გადაწყვიტე შეაშინო',
         nextText: 23
       },
-	  {
+      {
         text: 'გადაწყვიტე მუშტი დაარტყა სახეში',
         nextText: 24
       }
