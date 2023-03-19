@@ -1,7 +1,7 @@
 const btn = document.querySelector(".btn-toggle");
 const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-const currentTheme = localStorage.getItem("theme");
+const currentTheme = "dark"; //localStorage.getItem("theme");
 if (currentTheme == "dark") {
   document.body.classList.toggle("dark-theme");
 } else if (currentTheme == "light") {
@@ -20,7 +20,7 @@ btn.addEventListener("click", function () {
         ? "dark"
         : "light";
   }
-  localStorage.setItem("theme", theme);
+  //localStorage.setItem("theme", theme);
 });
 
 const textElement = document.getElementById('text')
@@ -561,7 +561,7 @@ const textNodes = [
     options: [
       {
         text: 'შენ მას დათანხმდი.',
-        nextText: 43
+        nextText: 42
       }
     ]
   },
