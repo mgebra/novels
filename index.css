@@ -1,0 +1,90 @@
+body {
+  --text-color: #222;
+  --bkg-color: #fff;
+  --option-hover-color: #be10a2;
+}
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #333;
+  --option-hover-color: #be10a2;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* defaults to dark theme */
+  body {
+    --text-color: #eee;
+    --bkg-color: #333;
+  }
+  body.light-theme {
+    --text-color: #222;
+    --bkg-color: #fff;
+  }
+  
+  .option:hover {
+	  --text-color: #FF0000;
+  }
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: var(--bkg-color);
+  font-size: 16px;
+}
+
+h1,
+div,
+p {
+  color: var(--text-color);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: Gotham Rounded;
+}
+
+.container {
+  align-items: center;
+  padding: 10px;
+  width: 80%;
+  margin: auto;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  background-color: hsl(200, 100%, 50%);
+  border: 1px solid hsl(200, 100%, 30%);
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  outline: none;
+}
+
+
+.btn:hover {
+  border-color: black;
+}
+
+.option {
+  font-size: 120%;
+  cursor: pointer;
+  color: var(--option-hover-color);
+  
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none;
+}
+
+.option:hover {
+  color: var(--option-hover-color);
+  text-decoration: underline;
+}
+
